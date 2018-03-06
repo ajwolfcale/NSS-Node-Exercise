@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-// const { readFileSync } = require('fs');
-const fs = require('fs');
+const { readFileSync } = require('fs');
 const [,,fileArg] = process.argv;
+
 
 
 if(fileArg){
     try{
-        fs.readFile(fileArg, 'utf8', function(err, data) {  
-            console.log(data);
-        });
+        const data = readFileSync(fileArg);
+        process.stdout.write(data.toString());
     } catch (err) {
         console.log('Err', err);
     } 
@@ -17,6 +16,3 @@ if(fileArg){
         console.log("Which file do you want?");
         process.exit();
 };
-
-
-
