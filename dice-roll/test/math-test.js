@@ -1,4 +1,4 @@
-const { assert: {isFunction, isNumber, isNotNaN}} = require('chai');
+const { assert: {isFunction, isNumber, isNotNaN, oneOf}} = require('chai');
 const { randomInt } = require('../lib/math.js');
 describe('randomInt', () => {
     describe('randomInt is a function', () => {
@@ -6,9 +6,9 @@ describe('randomInt', () => {
             isFunction(randomInt);
         })
         it("should return a number", () =>{
-            isFunction(randomInt(1, 6));
+            isNumber(randomInt(1, 6));
             isNumber(randomInt("fred", 6));
-            isNotNaN(randomInt("fred", 6));
+            isNaN(randomInt("fred", 6));
             for (let i = 0; i < 1000; i++) {
             oneOf( randomInt(1, 6), [1,2,3,4,5,6])
             }
