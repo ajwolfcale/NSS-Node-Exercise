@@ -13,4 +13,6 @@ module.exports.roll = (diceNotation) => {
   return diceTotal;
 };
 
-module.exports.toDiceNotation = ({count, sides}) => `${count}d${sides}`;
+module.exports.toDiceNotation = ({count, sides}) => `${count}d${sides}`; 
+
+

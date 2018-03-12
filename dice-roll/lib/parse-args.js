@@ -7,3 +7,5 @@ module.exports = ([num, sides]) => {
 
   return dieNums
 }
+
+
