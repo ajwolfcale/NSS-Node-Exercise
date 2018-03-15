@@ -9,7 +9,7 @@ server.on('request',(req, res) => {
     readFile(resource, (err, file) => {
         if(err){
             res.statusCode = 404;
-            return res.end('<h1>Not found, doood!<h1>');
+            return res.end('<h1>404: File Not Found</h1>');
         }
         res.end(file);
     });
