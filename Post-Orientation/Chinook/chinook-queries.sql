@@ -106,9 +106,24 @@
 -- ON g.GenreId = t.GenreId
 
 
-16. Provide a query that shows all Invoices but includes the # of invoice line items.
+-- 16. Provide a query that shows all Invoices but includes the # of invoice line items.
+-- SELECT i.*, COUNT(L.InvoiceId)
+-- FROM Invoice i
+-- JOIN InvoiceLine L
+-- ON L.InvoiceId=i.InvoiceId
+-- GROUP BY L.InvoiceId
 
-17. Provide a query that shows total sales made by each sales agent.
+
+-- 17. Provide a query that shows total sales made by each sales agent.
+-- SELECT (e.FirstName ||" "|| e.LastName) AS Employee,
+-- ROUND(SUM(i.Total), 2) AS "Total Sales"
+-- FROM Employee e
+-- JOIN Customer c
+-- ON c.SupportRepId=e.EmployeeId
+-- JOIN Invoice i
+-- ON i.CustomerId=c.CustomerId
+-- GROUP BY e.EmployeeId
+
 
 18. Which sales agent made the most in sales in 2009?
 
