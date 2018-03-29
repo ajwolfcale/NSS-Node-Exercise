@@ -3,8 +3,10 @@
 -- FROM customer 
 -- WHERE NOT Country = 'USA'
 
+
 -- 2. Provide a query only showing the Customers from Brazil.
 -- SELECT * FROM customer WHERE Country = 'Brazil'
+
 
 -- 3. Provide a query showing the Invoices of customers who are from Brazil. The resultant table should show the customer's full name, Invoice ID, Date of the invoice and billing country.
 -- SELECT (Customer.FirstName ||" "|| Customer.LastName)AS CustomerName, Invoice.InvoiceId, Invoice.InvoiceDate, Invoice.BillingCountry 
@@ -12,11 +14,14 @@
 -- INNER JOIN Invoice ON Invoice.CustomerId=Customer.CustomerId 
 -- WHERE Country = 'Brazil'
 
+
 -- 4. Provide a query showing only the Employees who are Sales Agents.
 -- SELECT * From Employee WHERE Title='Sales Support Agent'
 
+
 -- 5. Provide a query showing a unique list of billing countries from the Invoice table.
 -- SELECT DISTINCT BillingCountry FROM Invoice
+
 
 -- 6. Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
 -- SELECT (Employee.FirstName ||" "|| Employee.LastName)AS EmployeeName, Invoice.InvoiceId 
@@ -25,6 +30,7 @@
 -- ON Customer.SupportRepId=Employee.EmployeeId 
 -- LEFT Join Invoice 
 -- On Invoice.CustomerId=Customer.CustomerId
+
 
 -- 7. Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 -- SELECT Invoice.Total, (Customer.FirstName ||" "|| Customer.LastName)AS CustomerName, Customer.Country, (Employee.FirstName ||" "|| Employee.LastName) AS EmployeeName 
@@ -43,19 +49,62 @@
 -- GROUP BY strftime("%Y", Invoice.InvoiceDate)
 
 
-9. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
+-- 9. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
+-- SELECT COUNT (InvoiceLine.InvoiceId) 
+-- AS NumberofItems 
+-- FROM InvoiceLine
+-- WHERE InvoiceLine.InvoiceId=37
 
-10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 
-11. Provide a query that includes the track name with each invoice line item.
+-- 10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
+-- SELECT InvoiceLine.InvoiceId,
+-- COUNT (InvoiceLine.InvoiceId)
+-- AS TotalLineItems
+-- FROM InvoiceLine
+-- GROUP BY InvoiceLine.InvoiceId
 
-12. Provide a query that includes the purchased track name AND artist name with each invoice line item.
 
-13. Provide a query that shows the # of invoices per country. HINT: GROUP BY
+-- 11. Provide a query that includes the track name with each invoice line item.
+-- SELECT InvoiceLine.InvoiceId, InvoiceLine.InvoiceLineId, InvoiceLine.Quantity, InvoiceLine.TrackId, InvoiceLine.UnitPrice, Track.Name
+-- FROM InvoiceLine
+-- JOIN Track ON Track.TrackId=InvoiceLine.TrackId
 
-14. Provide a query that shows the total number of tracks in each playlist. The Playlist name should be included on the resultant table.
 
-15. Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.
+-- 12. Provide a query that includes the purchased track name AND artist name with each invoice line item.
+-- SELECT InvoiceLine.InvoiceId, InvoiceLine.InvoiceLineId, InvoiceLine.Quantity, InvoiceLine.TrackId, InvoiceLine.UnitPrice, Track.Name AS TrackName, Artist.Name AS ArtistName
+-- FROM InvoiceLine
+-- JOIN Track ON Track.TrackId=InvoiceLine.TrackId
+-- LEFT JOIN Album ON Album.AlbumId=Track.AlbumId
+-- LEFT JOIN Artist ON Artist.ArtistId=Album.ArtistId
+
+
+-- 13. Provide a query that shows the # of invoices per country. HINT: GROUP BY
+-- SELECT BillingCountry, COUNT(InvoiceId)
+-- AS TotalInvoices
+-- FROM Invoice
+-- GROUP BY BillingCountry
+
+
+-- 14. Provide a query that shows the total number of tracks in each playlist. The Playlist name should be included on the resultant table.
+-- SELECT Playlist.Name,
+-- COUNT(PlaylistTrack.TrackId)
+-- AS TotalTracks
+-- FROM PlaylistTrack
+-- LEFT JOIN Playlist
+-- ON Playlist.PlaylistId = PlaylistTrack.PlaylistId
+-- GROUP BY Playlist.PlaylistId
+
+
+-- 15. Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.
+-- SELECT t.Name "Track Name", a.Title "Album Title", t.Composer, t.Bytes "Size", t.Milliseconds "Length", t.UnitPrice "Price", m.Name "Media Type", g.Name "Genre"
+-- FROM Track t
+-- JOIN Album a
+-- ON a.AlbumId = t.AlbumId
+-- JOIN MediaType m
+-- ON m.MediaTypeId = t.MediaTypeId
+-- JOIN Genre g
+-- ON g.GenreId = t.GenreId
+
 
 16. Provide a query that shows all Invoices but includes the # of invoice line items.
 
