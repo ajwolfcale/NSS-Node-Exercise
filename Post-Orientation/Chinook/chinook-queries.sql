@@ -125,23 +125,120 @@
 -- GROUP BY e.EmployeeId
 
 
-18. Which sales agent made the most in sales in 2009?
+-- 18. Which sales agent made the most in sales in 2009?
+-- SELECT (e.FirstName ||" "|| e.LastName) AS Employee,
+-- ROUND(SUM(i.Total), 2) AS "Total Sales",
+-- strftime("%Y", i.InvoiceDate)AS "Year"
+-- FROM Employee e
+-- JOIN Customer c 
+-- ON c.SupportRepId=e.EmployeeId
+-- JOIN Invoice i
+-- ON i.CustomerId=c.CustomerId
+-- WHERE strftime("%Y", i.InvoiceDate)="2009"
+-- GROUP BY e.EmployeeId
+-- ORDER BY ROUND(SUM(i.Total), 2) DESC
+-- LIMIT 1
 
-19. Which sales agent made the most in sales in 2010?
 
-20. Which sales agent made the most in sales over all?
+-- 19. Which sales agent made the most in sales in 2010?
+-- SELECT (e.FirstName ||" "|| e.LastName) AS Employee,
+-- ROUND(SUM(i.Total), 2) AS "Total Sales",
+-- strftime("%Y", i.InvoiceDate)AS "Year"
+-- FROM Employee e
+-- JOIN Customer c 
+-- ON c.SupportRepId=e.EmployeeId
+-- JOIN Invoice i
+-- ON i.CustomerId=c.CustomerId
+-- WHERE strftime("%Y", i.InvoiceDate)="2010"
+-- GROUP BY e.EmployeeId
+-- ORDER BY ROUND(SUM(i.Total), 2) DESC
+-- LIMIT 1
 
-21. Provide a query that shows the # of customers assigned to each sales agent.
 
-22. Provide a query that shows the total sales per country. Which country's customers spent the most?
+-- 20. Which sales agent made the most in sales over all?
+-- SELECT (e.FirstName ||" "|| e.LastName) AS Employee,
+-- ROUND(SUM(i.Total), 2) AS "Total Sales"
+-- FROM Employee e
+-- JOIN Customer c 
+-- ON c.SupportRepId=e.EmployeeId
+-- JOIN Invoice i
+-- ON i.CustomerId=c.CustomerId
+-- GROUP BY e.EmployeeId
+-- ORDER BY ROUND(SUM(i.Total), 2) DESC
+-- LIMIT 1
 
-23. Provide a query that shows the most purchased track of 2013.
 
-24. Provide a query that shows the top 5 most purchased tracks over all.
+-- 21. Provide a query that shows the # of customers assigned to each sales agent.
+-- SELECT (e.FirstName ||" "||e.LastName) AS Employee,
+-- COUNT (c.CustomerId) AS "# of Customers"
+-- FROM Employee e
+-- JOIN Customer c
+-- ON c.SupportRepId=e.EmployeeId
+-- GROUP BY e.EmployeeId
 
-25. Provide a query that shows the top 3 best selling artists.
 
-26. Provide a query that shows the most purchased Media Type.
+--22. Provide a query that shows the total sales per country. Which country's customers spent the most?
+-- SELECT SUM(i.Total), 
+-- i.BillingCountry
+-- FROM Invoice i
+-- GROUP BY i.BillingCountry
+-- ORDER BY SUM(i.Total) DESC
+
+-- 23. Provide a query that shows the most purchased track of 2013.
+-- SELECT t.Name AS Song,
+-- strftime("%Y", i.InvoiceDate)AS "Year",
+-- SUM(L.Quantity) AS Units
+-- FROM Track t
+-- JOIN InvoiceLine L
+-- ON L.TrackId=t.TrackId
+-- JOIN Invoice i
+-- ON i.InvoiceId=L.InvoiceId
+-- WHERE strftime("%Y", i.InvoiceDate)="2013"
+-- GROUP BY t.Name
+-- ORDER BY SUM(L.Quantity) DESC
+-- Limit 1
+
+-- 24. Provide a query that shows the top 5 most purchased tracks over all.
+-- SELECT t.Name AS Song,
+-- SUM(L.Quantity) AS Units
+-- FROM Track t
+-- JOIN InvoiceLine L
+-- ON L.TrackId=t.TrackId
+-- JOIN Invoice i
+-- ON i.InvoiceId=L.InvoiceId
+-- GROUP BY t.Name
+-- ORDER BY SUM(L.Quantity) DESC
+-- Limit 5
+
+-- 25. Provide a query that shows the top 3 best selling artists.
+-- SELECT a.Name AS Artist,
+-- SUM(L.Quantity) AS Units
+-- FROM Artist a
+-- JOIN Album al
+-- ON al.ArtistId=a.ArtistId
+-- JOIN Track t
+-- ON t.AlbumId=al.AlbumId
+-- JOIN InvoiceLine L
+-- ON L.TrackId=t.TrackId
+-- JOIN Invoice i
+-- ON i.InvoiceId=L.InvoiceId
+-- GROUP BY a.Name
+-- ORDER BY SUM(L.Quantity) DESC
+-- Limit 3
+
+-- 26. Provide a query that shows the most purchased Media Type.
+-- SELECT m.Name AS Format,
+-- SUM(L.Quantity) AS Units
+-- FROM MediaType m
+-- JOIN Track t
+-- ON t.MediaTypeId=m.MediaTypeId
+-- JOIN InvoiceLine L
+-- ON L.TrackId=t.TrackId
+-- JOIN Invoice i
+-- ON i.InvoiceId=L.InvoiceId
+-- GROUP BY m.Name
+-- ORDER BY SUM(L.Quantity) DESC
+-- Limit 1
 
 27. Provide a query that shows the number tracks purchased in all invoices that contain more than one genre.
 
